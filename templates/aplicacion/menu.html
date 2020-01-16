@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Post</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/aplicacion/inicio">APP</a>
+                <span></span>
+                </button>
+            </div>
+        </nav>
+
+     <div class="row py-2"> 
+
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                  Ask a question:
+                </div>
+                <div class="card-body">
+                  <form method="POST">{% csrf_token %}
+                    <textarea name="ask" class="form-control" cols="62" rows="5" placeholder="">
+
+                    </textarea>
+                    <button type="submit" class="btn btn-primary btn-block my-2">Ask</button>
+                  </form>
+                </div>
+              </div>
+
+            {% if post %}
+              {% for a in post%}
+              <div class="card my-3">
+                <div class="card-header">
+                  Quote
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                    <p>{{ a.consult }}</p>
+                  </blockquote>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+            <div class="card text-white bg-info mb-3 offset-md-3 my-3" style="max-width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">There is no published question</h5>
+                <p class="card-text">Be the first to post a question</p>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+     </div>  
+
+    </div>
+</body>
+</html>
