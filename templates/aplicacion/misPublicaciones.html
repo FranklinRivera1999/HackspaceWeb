@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HACK SPACE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+</head>
+<body>
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container">
+              <a class="navbar-brand" href="/aplicacion/inicio">APP</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/aplicacion/mispublicaciones">My Questions</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/aplicacion/inicio">Exit</a>
+              </li>
+            </ul>
+          </div>
+          </div>
+      </nav>
+
+      <div class="row py-2"> 
+
+        <div class="col-md-8 offset-md-2">
+
+            {% if post %}
+              {% for a in post%}
+              <div class="card my-2 border-dark text-center">
+                <div class="card-header">
+                  
+                  <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#staticBackdrop">
+                    Edit Question</button>
+
+                </div>
+                <div class="card-body text-dark">
+                  <blockquote class="blockquote mb-0">
+                    <p>{{ a.consult }}</p>
+                    <form action="" method="post">{% csrf_token %}
+                        <input type="hidden" name="post" value={{ a.id }}>
+                        <button type="submit" class="btn btn-danger">Delete Question</button>
+                      </form>
+                  </blockquote>
+                </div>
+                
+
+                <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Edit Question</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <form action="/aplicacion/editQuestion/" method="post">{% csrf_token %}
+                                <input type="hidden" name="post" value={{ a.id }}>
+                                <textarea required name="consult" class="form-control" autofocus>
+                                    {{ a.consult}}
+                                </textarea>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info my-2">Edit Question</button>
+                                </div>
+                            </form>
+                            </div>
+
+                        </div>
+                        </div>
+                    </div>
+
+              </div>
+              {% endfor %}
+            {% else %}
+            <div class="card text-white bg-info mb-3 offset-md-3 my-3" style="max-width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">There is no published question</h5>
+                <p class="card-text">Be the first to post a question</p>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+     </div>  
+
+    </div>  
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
